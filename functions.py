@@ -4,7 +4,10 @@ import numpy as np
 import imageio.v2 as imageio
 
 def radial_profile(data, center):
-    y, x = np.indices((data.shape))
+    if (len(data.shape)>2):
+        y, x, z = np.indices((data.shape))
+    else:
+        y, x = np.indices((data.shape))
     r = np.sqrt((x - center[0])**2 + (y - center[1])**2)
     r = r.astype(int)
 
