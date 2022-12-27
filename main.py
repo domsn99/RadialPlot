@@ -19,7 +19,7 @@ data_start, data_end = 1,1
 # The plots are smoothed with a moving average, where the window can be variied.
 average_window=6
 
-# This sets the scale of the pixel [urad].
+# This sets the scale of the data points [e.g. urad/px].
 scale=5.6e-2
 
 # Setting the label of the plot.
@@ -34,6 +34,7 @@ save_path, save_name = "plots\\","plot"
 
 
 for i in range(data_start,data_end+1):
+    # Load data into array and create radial profile.
     data = np.array(imageio.imread(data_path+str(i)+data_format))
     rad = radial_profile(data, center)
 
