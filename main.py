@@ -11,32 +11,42 @@ from functions import *
 # Set centre of the radial distribution. 
 # ZLP radius can be set if centre beam is magnitudes higher than the rest and makes the plot confusing.
 # Radi determines the radius which should be integrated.
-center, zlp, radi = (478, 489), 0, 400
+center, zlp, radi = (527, 596), 0, 300
 
 # If multiple plots should be overlapped, this can be set to the desired amount.
-data_start, data_end = 1,1
+data_start, data_end = 2,2
 
 # The plots are smoothed with a moving average, where the window can be variied.
 average_window=6
 
-# This sets the scale of the data points [e.g. urad/px].
-scale=5.6e-2
+# This sets the scale of the data points [e.g. µrad/px].
+scale=0.17385
 
 # Setting the label of the plot.
 plotlabel=" eV"
+
+# Set plot type: 
+# 1...circular
+# 2...first quadrant
+# 3...second quadrant
+# 4...third quadrant
+# 5...fourth quadrant
+profile_type=4
 
 multiple_plots=False
 sum_plot=False
 save_plot=False
 show_plot=True
-data_path, data_format = "data\\",".tif"
+data_path, data_name, data_format = "data\\","Si_0",".tif"
 save_path, save_name = "plots\\","plot"
 
 
 for i in range(data_start,data_end+1):
     # Load data into array and create radial profile.
-    data = np.array(imageio.imread(data_path+str(i)+data_format))
-    rad = radial_profile(data, center)
+    data = np.array(imageio.imread(data_path+data_name+str(i)+data_format))
+
+
+    rad = profile(profile_type, data, center)
 
     # If zlp is set, the first zlp data points are swapped with data from the outer array.
     for k in range(zlp):
